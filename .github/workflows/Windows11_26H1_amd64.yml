@@ -51,5 +51,3 @@ jobs:
         tag_name: ${{env.FILE_NAME}}-${{env.Build_VERSION}}
         name: ${{env.FILE_NAME}}-${{env.Build_VERSION}}
         files: ${{env.FILE_NAME}}-${{env.Build_VERSION}}.7z*
-      env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
