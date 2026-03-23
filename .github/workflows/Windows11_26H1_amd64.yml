@@ -39,6 +39,7 @@ jobs:
       run: |
         dir
         move  ./${{env.FILE_NAME}}/*.iso ${{env.FILE_NAME}}.${{env.Build_VERSION}}.iso
+        dir
 
     # 上传镜像
     - uses: actions/upload-artifact@v6
