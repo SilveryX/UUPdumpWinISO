@@ -35,7 +35,7 @@ jobs:
         dir
 
     # 移动并重命名镜像
-    - name: dir dir
+    - name: Rename
       shell: cmd
       run: |
         dir
