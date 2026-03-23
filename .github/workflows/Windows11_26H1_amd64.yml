@@ -32,13 +32,12 @@ jobs:
         cd ${{env.FILE_NAME}}
         dir
         uup_download_windows.cmd
-        dir
 
     # 移动并重命名镜像
     - name: Rename
       shell: cmd
       run: |
-        dir
+        dir  .\${{env.FILE_NAME}}
         move  .\${{env.FILE_NAME}}\${{env.Build_VERSION}}*.iso .\${{env.FILE_NAME}}.${{env.Build_VERSION}}.iso
         dir
 
