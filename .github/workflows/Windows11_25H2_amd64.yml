@@ -15,7 +15,7 @@ jobs:
 
     # 检出本仓库
     - name: Checkout repository
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
 
     # 制作ISO
     - name: UUP dump WinISO
@@ -25,29 +25,31 @@ jobs:
         dir
         uup_download_windows.cmd
 
-    # 查看目录
+    # 移动并重命名镜像
     - name: dir dir
       shell: cmd
       run: |
         cd ${{env.FILE_NAME}}
         dir
+        move  ./${{env.FILE_NAME}}/*.iso ${{env.FILE_NAME}}.${{env.Build_VERSION}}.iso
+
+    # 上传镜像
+    - uses: actions/upload-artifact@v6
+      with:
+        name: ${{env.FILE_NAME}}.${{env.Build_VERSION}}
+        path: ${{env.FILE_NAME}}.${{env.Build_VERSION}}.iso
 
     # 打包
     - name: Package binaries
+      if: ${{ github.event.inputs.release == 'true' }}
       run: |
-        #ls     #Directory: D:\a\UUPdumpWinISO\UUPdumpWinISO(即仓库目录)
-        7z a -v1950M ${{env.FILE_NAME}}-${{env.Build_VERSION}}.7z ./${{env.FILE_NAME}}/*.iso -mx=9
-
-    # 上传镜像
-    - uses: actions/upload-artifact@v4
-      with:
-        name: ${{env.FILE_NAME}}-${{env.Build_VERSION}}
-        path: ${{env.FILE_NAME}}-${{env.Build_VERSION}}.7z*
+        7z a -v1950M ${{env.FILE_NAME}}.${{env.Build_VERSION}}.7z ./${{env.FILE_NAME}}.${{env.Build_VERSION}}.iso -mx=9
 
     # 发布镜像
     - name: Release
-      uses: softprops/action-gh-release@v2
+      if: ${{ github.event.inputs.release == 'true' }}
+      uses: softprops/action-gh-release@v2.6.1
       with:
-        tag_name: ${{env.FILE_NAME}}-${{env.Build_VERSION}}
-        name: ${{env.FILE_NAME}}-${{env.Build_VERSION}}
-        files: ${{env.FILE_NAME}}-${{env.Build_VERSION}}.7z*
+        tag_name: ${{env.FILE_NAME}}.${{env.Build_VERSION}}
+        name: ${{env.FILE_NAME}}.${{env.Build_VERSION}}
+        files: ${{env.FILE_NAME}}.${{env.Build_VERSION}}.7z*
