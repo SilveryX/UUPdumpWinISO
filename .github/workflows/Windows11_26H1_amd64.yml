@@ -39,7 +39,7 @@ jobs:
       shell: cmd
       run: |
         dir
-        move  .\${{env.FILE_NAME}}\${{env.Build_VERSION}}*.iso ${{env.FILE_NAME}}.${{env.Build_VERSION}}.iso
+        move  .\${{env.FILE_NAME}}\${{env.Build_VERSION}}*.iso .\${{env.FILE_NAME}}.${{env.Build_VERSION}}.iso
         dir
 
     # 上传镜像
