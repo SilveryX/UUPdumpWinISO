@@ -37,7 +37,6 @@ jobs:
     - name: dir dir
       shell: cmd
       run: |
-        cd ${{env.FILE_NAME}}
         dir
         move  ./${{env.FILE_NAME}}/*.iso ${{env.FILE_NAME}}.${{env.Build_VERSION}}.iso
 
