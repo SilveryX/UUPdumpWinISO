@@ -12,7 +12,7 @@ on:
           - 'true'
 
 env:
-  Build_VERSION: '28000.1643'
+  Build_VERSION: '28000.1719'
   FILE_NAME: Windows11_26H1_amd64
 
 jobs:
