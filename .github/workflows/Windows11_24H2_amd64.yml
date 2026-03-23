@@ -34,11 +34,12 @@ jobs:
         uup_download_windows.cmd
 
     # 移动并重命名镜像
-    - name: dir dir
+    - name: Rename
       shell: cmd
       run: |
+        dir  .\${{env.FILE_NAME}}
+        move  .\${{env.FILE_NAME}}\${{env.Build_VERSION}}*.iso .\${{env.FILE_NAME}}.${{env.Build_VERSION}}.iso
         dir
-        move  ./${{env.FILE_NAME}}/*.iso ${{env.FILE_NAME}}.${{env.Build_VERSION}}.iso
 
     # 上传镜像
     - uses: actions/upload-artifact@v6
